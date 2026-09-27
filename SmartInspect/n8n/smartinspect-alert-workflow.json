@@ -1,0 +1,12 @@
+{
+  "name":"SmartInspect Alert Receiver",
+  "nodes":[
+    {"parameters":{"httpMethod":"POST","path":"smartinspect-alert","responseMode":"onReceived"},"name":"Webhook","type":"n8n-nodes-base.webhook","typeVersion":2,"position":[0,0]},
+    {"parameters":{"jsCode":"const event=$json.body?.event || $json.event || 'unknown'; return [{json:{event,inspection_id:$json.body?.inspection_id || $json.inspection_id || null,message:`SmartInspect event received: ${event}`}}];"},"name":"Prepare Notification","type":"n8n-nodes-base.code","typeVersion":2,"position":[260,0]},
+    {"parameters":{"content":"SmartInspect automation received an event. Connect your preferred email/SMS/Teams node after this step.","height":180,"width":320},"name":"Notification Placeholder","type":"n8n-nodes-base.stickyNote","typeVersion":1,"position":[520,0]}
+  ],
+  "connections":{"Webhook":{"main":[[{"node":"Prepare Notification","type":"main","index":0}]]},"Prepare Notification":{"main":[[]]}},
+  "active":false,
+  "settings":{},
+  "versionId":"smartinspect-v1"
+}
